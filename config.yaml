@@ -1,0 +1,114 @@
+---
+desktop:
+  contextmenu:
+    darkMode: true
+    addDebugEntry: true # Exit GoShell Entry
+taskbar:
+  height: 30
+  # position: top # bottom
+  # iconPosition: center
+  # fontFamily: Calibri
+  fontFamily: "Segoe UI"
+  # fontFamily: "Times New Roman"
+  # fontFamily: "MS Shell Dlg 2"
+  fontSize: 17
+  button:
+    size:
+      width: 160
+      height: 30
+    bgcolor:
+      r: 32
+      g: 32
+      b: 32
+    textcolor:
+      r: 0
+      g: 195
+      b: 255
+  bgcolor:
+    r: 20
+    g: 20
+    b: 20
+
+contextmenu:
+- name: CLSID_Desktop
+  openProcess: "%WINDIR%\\explorer.exe"
+  args:
+  - /select,0x11
+
+- name: regedit
+  openProcess: "%WINDIR%\\regedit.exe"
+
+- name: separator
+
+- name: Desktop
+  path:
+  - FOLDERID_Desktop
+  - FOLDERID_PublicDesktop
+
+- name: StartMenu
+  path:
+  - "%ProgramData%\\Microsoft\\Windows\\Start Menu"
+  - FOLDERID_StartMenu
+  - FOLDERID_CommonStartMenu
+
+- name: QuickLaunch
+  path:
+  - FOLDERID_QuickLaunch
+
+- name: separator
+
+- name: "Control Panel"
+  openProcess: control
+  icon:
+    filename: "%SystemRoot%\\system32\\shell32.dll"
+    index: -22
+
+# - name: "NVIDIA ControlPanel"
+#   openProcess: "C:\\Program Files\\WindowsApps\\NVIDIACorp.NVIDIAControlPanel_8.1.964.0_x64__56jybvy8sckqj\\nvcplui.exe"
+
+- name: CLSID_Run
+  openProcess: rundll32.exe
+  args:
+  - shell32.dll,#61
+
+- name: Reboot
+  icon:
+    filename: "%SystemRoot%\\system32\\imageres.dll"
+    index: -1401
+  createProcess: "%WINDIR%\\System32\\shutdown.exe"
+  args:
+  - "/r"
+  - "/t 0"
+  hidden: true
+
+- name: Logoff
+  icon:
+    filename: "%SystemRoot%\\system32\\shell32.dll"
+    index: -45
+  createProcess: "%WINDIR%\\System32\\shutdown.exe"
+  args:
+  - /l
+  hidden: true
+
+- name: SlideToShutDown
+  icon:
+    filename: "%SystemRoot%\\system32\\shell32.dll"
+    index: -28
+  shellExecute: "%WINDIR%\\System32\\SlideToShutDown.exe"
+
+hotkey:
+- buttons: WIN+R
+  openProcess: rundll32.exe
+  args:
+  - shell32.dll,#61
+
+- buttons: WIN+E
+  openProcess: explorer.exe
+  args:
+  - /select,0x11
+
+- buttons: WIN+SHIFT+S
+  openProcess: SnippingTool.exe
+
+- buttons: WIN+I
+  openProcess: control

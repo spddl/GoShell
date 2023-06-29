@@ -1,0 +1,19 @@
+package main
+
+import (
+	"github.com/go-ole/go-ole"
+	"github.com/go-ole/go-ole/oleutil"
+)
+
+// Funktioniert nicht ohne Explorer.exe
+func ShutdownMachine() {
+	// https://learn.microsoft.com/en-us/windows/win32/shell/ishelldispatch-shutdownwindows
+	ole.CoInitialize(0)
+	unknown, _ := oleutil.CreateObject("Shell.Application")
+	shell, _ := unknown.QueryInterface(ole.IID_IDispatch)
+	// ole.CreateInstance()
+
+	oleutil.MustCallMethod(shell, "ShutdownWindows").ToIDispatch()
+	shell.Release()
+	ole.CoUninitialize()
+}

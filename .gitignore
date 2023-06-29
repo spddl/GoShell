@@ -1,5 +1,5 @@
-.exe
-.old
-.reg
-.vbs
-.psd
+*.exe
+*.old
+*.reg
+*.vbs
+*.psd
